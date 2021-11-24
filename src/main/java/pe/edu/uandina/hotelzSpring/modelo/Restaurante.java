@@ -1,6 +1,9 @@
 package pe.edu.uandina.hotelzSpring.modelo;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,20 +16,25 @@ public class Restaurante {
     private long id;
     @Column(name = "nombrePlato")
     private String nombrePlato;
-    @Column(name = "precioPlato")
-    private Float precioPlato;
+    @Column(name = "precioPlato", scale = 2)
+    private BigDecimal precioPlato;
+
+    @Column(name = "fotoRestaurante")
+    private String fotoRestaurante;
+
 
     //    pertenece a un detalleReserva
-    @OneToMany(mappedBy = "tieneRestaurante")
-    private List<DetalleReserva> detalleReservas;
+    @OneToMany(mappedBy = "tieneDetalleReservaRest")
+    @JsonManagedReference
+    private List<DetalleReserva> tieneDetalleReservaRest;
 
     public Restaurante() {
     }
 
-    public Restaurante(String nombrePlato, Float precioPlato, List<DetalleReserva> detalleReservas) {
+    public Restaurante(String nombrePlato, BigDecimal precioPlato, String fotoRestaurante) {
         this.nombrePlato = nombrePlato;
         this.precioPlato = precioPlato;
-        this.detalleReservas = detalleReservas;
+        this.fotoRestaurante = fotoRestaurante;
     }
 
     public long getId() {
@@ -45,22 +53,30 @@ public class Restaurante {
         this.nombrePlato = nombrePlato;
     }
 
-    public Float getPrecioPlato() {
+    public BigDecimal getPrecioPlato() {
         return precioPlato;
     }
 
-    public void setPrecioPlato(Float precioPlato) {
+    public void setPrecioPlato(BigDecimal precioPlato) {
         this.precioPlato = precioPlato;
     }
 
+    public String getFotoRestaurante() {
+        return fotoRestaurante;
+    }
+
+    public void setFotoRestaurante(String fotoRestaurante) {
+        this.fotoRestaurante = fotoRestaurante;
+    }
+
     public List<DetalleReserva> getDetalleReservas() {
-        if (this.detalleReservas == null){
-            this.detalleReservas = new ArrayList<>();
+        if (this.tieneDetalleReservaRest == null){
+            this.tieneDetalleReservaRest = new ArrayList<>();
         }
-        return detalleReservas;
+        return tieneDetalleReservaRest;
     }
 
     public void setDetalleReservas(List<DetalleReserva> detalleReservas) {
-        this.detalleReservas = detalleReservas;
+        this.tieneDetalleReservaRest = detalleReservas;
     }
 }

@@ -1,6 +1,8 @@
 package pe.edu.uandina.hotelzSpring.modelo;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,17 +19,18 @@ public class Testimonio {
     @Column(name = "estado")
     private Integer estado;
 
-//    pertenece a un cliente
-    @OneToMany(mappedBy = "tieneTestimonio")
-    private List<Cliente> clientes;
+    @ManyToOne
+    @JoinColumn(name = "tieneTestimonio", referencedColumnName = "id")
+    @JsonBackReference
+    private Cliente tieneTestimonio;
+
 
     public Testimonio() {
     }
 
-    public Testimonio(String contenido, Integer estado, List<Cliente> clientes) {
+    public Testimonio(String contenido, Integer estado) {
         this.contenido = contenido;
         this.estado = estado;
-        this.clientes = clientes;
     }
 
     public long getId() {
@@ -54,14 +57,11 @@ public class Testimonio {
         this.estado = estado;
     }
 
-    public List<Cliente> getClientes() {
-        if (this.clientes == null){
-            this.clientes = new ArrayList<>();
-        }
-        return clientes;
+    public Cliente getTieneTestimonio() {
+        return tieneTestimonio;
     }
 
-    public void setClientes(List<Cliente> clientes) {
-        this.clientes = clientes;
+    public void setTieneTestimonio(Cliente tieneTestimonio) {
+        this.tieneTestimonio = tieneTestimonio;
     }
 }

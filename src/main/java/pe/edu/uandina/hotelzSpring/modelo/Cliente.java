@@ -1,7 +1,10 @@
 package pe.edu.uandina.hotelzSpring.modelo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
+import java.util.ArrayList;
 import javax.persistence.*;
 import java.awt.*;
+import java.util.List;
 
 @Entity
 @Table(name = "cliente")
@@ -13,6 +16,8 @@ public class Cliente {
     @Column(name = "nombre")
     private String nombre;
 
+    @Column(name = "foto")
+    private String foto;
     @Column(name = "modo")
     private String modo;
     @Column(name = "telefono")
@@ -24,28 +29,27 @@ public class Cliente {
     @Column(name = "dni")
     private String dni;
 
-    //referencia de muchos a uno para tieneTestimonio
-    @ManyToOne
-    @JoinColumn(name = "tieneTestimonio", referencedColumnName = "id")
-    private Testimonio tieneTestimonio;
+    @OneToMany(mappedBy = "tieneTestimonio")
+    @JsonManagedReference
+    private List<Testimonio> testimonios;
 
-    //referencia de muchos a uno para tieneDetalleReserva
-    @ManyToOne
-    @JoinColumn(name = "tieneDetalleReserva", referencedColumnName = "id")
-    private Testimonio tieneDetalleReserva;
-
+    @OneToMany(mappedBy = "tieneDetalleReserva")
+    @JsonManagedReference
+    private List<DetalleReserva> detalleReservas;
 
     public Cliente() {
     }
 
-    public Cliente(String nombre, String modo, String telefono, String email, String pais, String dni) {
-
+    public Cliente(String nombre, String foto, String modo, String telefono, String email, String pais, String dni, List<Testimonio> testimonios, List<DetalleReserva> detalleReservas) {
         this.nombre = nombre;
+        this.foto = foto;
         this.modo = modo;
         this.telefono = telefono;
         this.email = email;
         this.pais = pais;
         this.dni = dni;
+        this.testimonios = testimonios;
+        this.detalleReservas = detalleReservas;
     }
 
     public long getId() {
@@ -62,6 +66,14 @@ public class Cliente {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    public String getFoto() {
+        return foto;
+    }
+
+    public void setFoto(String foto) {
+        this.foto = foto;
     }
 
     public String getModo() {
@@ -104,19 +116,25 @@ public class Cliente {
         this.dni = dni;
     }
 
-    public Testimonio getTieneTestimonio() {
-        return tieneTestimonio;
+    public List<Testimonio> getTestimonios() {
+        if (this.testimonios == null){
+            this.testimonios = new ArrayList<>();
+        }
+        return testimonios;
     }
 
-    public void setTieneTestimonio(Testimonio tieneTestimonio) {
-        this.tieneTestimonio = tieneTestimonio;
+    public void setTestimonios(List<Testimonio> testimonios) {
+        this.testimonios = testimonios;
     }
 
-    public Testimonio getTieneDetalleReserva() {
-        return tieneDetalleReserva;
+    public List<DetalleReserva> getDetalleReservas() {
+        if (this.detalleReservas == null){
+            this.detalleReservas = new ArrayList<>();
+        }
+        return detalleReservas;
     }
 
-    public void setTieneDetalleReserva(Testimonio tieneDetalleReserva) {
-        this.tieneDetalleReserva = tieneDetalleReserva;
+    public void setDetalleReservas(List<DetalleReserva> detalleReservas) {
+        this.detalleReservas = detalleReservas;
     }
 }

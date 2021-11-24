@@ -1,6 +1,11 @@
 package pe.edu.uandina.hotelzSpring.modelo;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import org.apache.tomcat.jni.Local;
+
 import javax.persistence.*;
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -14,40 +19,49 @@ public class DetalleReserva {
     @Column(name = "id", unique = true)
     private long id;
     @Column(name = "ingreso")
-    private Date ingreso;
+    private LocalDate ingreso;
     @Column(name = "salida")
-    private Date salida;
-    @Column(name = "precio")
-    private Float precio;
-    @Column(name = "adelanto")
-    private Float adelanto;
+    private LocalDate salida;
+    @Column(name = "precio", scale = 2)
+    private BigDecimal precio;
+    @Column(name = "adelanto", scale = 2)
+    private BigDecimal adelanto;
     @Column(name = "dias")
     private Integer dias;
 
-    //    pertenece a un cliente
-    @OneToMany(mappedBy = "tieneDetalleReserva")
-    private List<Cliente> clientes;
+
+    // cliente
+    @ManyToOne
+    @JoinColumn(name = "tieneDetalleReserva", referencedColumnName = "id")
+    @JsonBackReference
+    //@JsonBackReference
+    private Cliente tieneDetalleReserva;
 
     //referencia de muchos a uno para tieneRestaurante
     @ManyToOne
-    @JoinColumn(name = "tieneRestaurante", referencedColumnName = "id")
-    private Testimonio tieneRestaurante;
+    @JoinColumn(name = "tieneDetalleReservaRest", referencedColumnName = "id")
+    @JsonBackReference
+    //@JsonBackReference
+    private Restaurante tieneDetalleReservaRest;
+
 
     //referencia de muchos a uno para tieneHabitacion
     @ManyToOne
-    @JoinColumn(name = "tieneHabitacion", referencedColumnName = "id")
-    private Testimonio tieneHabitacion;
+    @JoinColumn(name = "tieneDetalleReservaHab", referencedColumnName = "id")
+    @JsonBackReference
+    //@JsonBackReference
+    private Habitacion tieneDetalleReservaHab;
+
 
     public DetalleReserva() {
     }
 
-    public DetalleReserva(Date ingreso, Date salida, Float precio, Float adelanto, Integer dias, List<Cliente> clientes) {
+    public DetalleReserva(LocalDate ingreso, LocalDate salida, BigDecimal precio, BigDecimal adelanto, Integer dias) {
         this.ingreso = ingreso;
         this.salida = salida;
         this.precio = precio;
         this.adelanto = adelanto;
         this.dias = dias;
-        this.clientes = clientes;
     }
 
     public long getId() {
@@ -58,35 +72,35 @@ public class DetalleReserva {
         this.id = id;
     }
 
-    public Date getIngreso() {
+    public LocalDate getIngreso() {
         return ingreso;
     }
 
-    public void setIngreso(Date ingreso) {
+    public void setIngreso(LocalDate ingreso) {
         this.ingreso = ingreso;
     }
 
-    public Date getSalida() {
+    public LocalDate getSalida() {
         return salida;
     }
 
-    public void setSalida(Date salida) {
+    public void setSalida(LocalDate salida) {
         this.salida = salida;
     }
 
-    public Float getPrecio() {
+    public BigDecimal getPrecio() {
         return precio;
     }
 
-    public void setPrecio(Float precio) {
+    public void setPrecio(BigDecimal precio) {
         this.precio = precio;
     }
 
-    public Float getAdelanto() {
+    public BigDecimal getAdelanto() {
         return adelanto;
     }
 
-    public void setAdelanto(Float adelanto) {
+    public void setAdelanto(BigDecimal adelanto) {
         this.adelanto = adelanto;
     }
 
@@ -98,30 +112,27 @@ public class DetalleReserva {
         this.dias = dias;
     }
 
-    public List<Cliente> getClientes() {
-        if (this.clientes == null){
-            this.clientes = new ArrayList<>();
-        }
-        return clientes;
+    public Cliente getTieneDetalleReserva() {
+        return tieneDetalleReserva;
     }
 
-    public void setClientes(List<Cliente> clientes) {
-        this.clientes = clientes;
+    public void setTieneDetalleReserva(Cliente tieneDetalleReserva) {
+        this.tieneDetalleReserva = tieneDetalleReserva;
     }
 
-    public Testimonio getTieneRestaurante() {
-        return tieneRestaurante;
+    public Restaurante getTieneDetalleReservaRest() {
+        return tieneDetalleReservaRest;
     }
 
-    public void setTieneRestaurante(Testimonio tieneRestaurante) {
-        this.tieneRestaurante = tieneRestaurante;
+    public void setTieneDetalleReservaRest(Restaurante tieneDetalleReservaRest) {
+        this.tieneDetalleReservaRest = tieneDetalleReservaRest;
     }
 
-    public Testimonio getTieneHabitacion() {
-        return tieneHabitacion;
+    public Habitacion getTieneDetalleReservaHab() {
+        return tieneDetalleReservaHab;
     }
 
-    public void setTieneHabitacion(Testimonio tieneHabitacion) {
-        this.tieneHabitacion = tieneHabitacion;
+    public void setTieneDetalleReservaHab(Habitacion tieneDetalleReservaHab) {
+        this.tieneDetalleReservaHab = tieneDetalleReservaHab;
     }
 }

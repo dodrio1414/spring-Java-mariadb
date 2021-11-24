@@ -1,7 +1,10 @@
 package pe.edu.uandina.hotelzSpring.modelo;
 
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,29 +17,37 @@ public class Habitacion {
     private long id;
     @Column(name = "nombreHabitacion")
     private String nombreHabitacion;
+
+    @Column(name = "fotoHabitacion")
+    private String fotoHabitacion;
+
     @Column(name = "estadoHabitacion")
     private String estadoHabitacion;
     @Column(name = "tipoHabitacion")
     private String tipoHabitacion;
-    @Column(name = "precioHabitacion")
-    private Float precioHabitacion;
+    @Column(name = "precioHabitacion", scale = 2)
+    private BigDecimal precioHabitacion;
     @Column(name = "descripcionHabitacion")
     private String descripcionHabitacion;
 
-    //    pertenece a un detalleReserva
-    @OneToMany(mappedBy = "tieneHabitacion")
-    private List<DetalleReserva> detalleReservas;
+
+    //lista de detalle de reservas
+    @OneToMany(mappedBy = "tieneDetalleReservaHab")
+    @JsonManagedReference
+    private List<DetalleReserva> tieneDetalleReservaHab;
 
     public Habitacion() {
     }
 
-    public Habitacion(String nombreHabitacion, String estadoHabitacion, String tipoHabitacion, Float precioHabitacion, String descripcionHabitacion, List<DetalleReserva> detalleReservas) {
+    public Habitacion(long id, String nombreHabitacion, String fotoHabitacion, String estadoHabitacion, String tipoHabitacion, BigDecimal precioHabitacion, String descripcionHabitacion, List<DetalleReserva> tieneDetalleReservaHab) {
+        this.id = id;
         this.nombreHabitacion = nombreHabitacion;
+        this.fotoHabitacion = fotoHabitacion;
         this.estadoHabitacion = estadoHabitacion;
         this.tipoHabitacion = tipoHabitacion;
         this.precioHabitacion = precioHabitacion;
         this.descripcionHabitacion = descripcionHabitacion;
-        this.detalleReservas = detalleReservas;
+        this.tieneDetalleReservaHab = tieneDetalleReservaHab;
     }
 
     public long getId() {
@@ -55,6 +66,14 @@ public class Habitacion {
         this.nombreHabitacion = nombreHabitacion;
     }
 
+    public String getFotoHabitacion() {
+        return fotoHabitacion;
+    }
+
+    public void setFotoHabitacion(String fotoHabitacion) {
+        this.fotoHabitacion = fotoHabitacion;
+    }
+
     public String getEstadoHabitacion() {
         return estadoHabitacion;
     }
@@ -71,11 +90,11 @@ public class Habitacion {
         this.tipoHabitacion = tipoHabitacion;
     }
 
-    public Float getPrecioHabitacion() {
+    public BigDecimal getPrecioHabitacion() {
         return precioHabitacion;
     }
 
-    public void setPrecioHabitacion(Float precioHabitacion) {
+    public void setPrecioHabitacion(BigDecimal precioHabitacion) {
         this.precioHabitacion = precioHabitacion;
     }
 
@@ -87,15 +106,14 @@ public class Habitacion {
         this.descripcionHabitacion = descripcionHabitacion;
     }
 
-    public List<DetalleReserva> getDetalleReservas() {
-        if (this.detalleReservas == null){
-            this.detalleReservas = new ArrayList<>();
+    public List<DetalleReserva> getTieneDetalleReservaHab() {
+        if (this.tieneDetalleReservaHab == null){
+            this.tieneDetalleReservaHab = new ArrayList<>();
         }
-        return detalleReservas;
+        return tieneDetalleReservaHab;
     }
 
-    public void setDetalleReservas(List<DetalleReserva> detalleReservas) {
-        this.detalleReservas = detalleReservas;
+    public void setTieneDetalleReservaHab(List<DetalleReserva> tieneDetalleReservaHab) {
+        this.tieneDetalleReservaHab = tieneDetalleReservaHab;
     }
-
 }
