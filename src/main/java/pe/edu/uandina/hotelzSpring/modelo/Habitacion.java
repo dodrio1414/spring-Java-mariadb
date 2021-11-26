@@ -33,7 +33,10 @@ public class Habitacion {
 
     //lista de detalle de reservas
     @OneToMany(mappedBy = "tieneDetalleReservaHab")
-    @JsonManagedReference
+    //@JsonManagedReference
+    @JsonManagedReference(value = "tieneDetalleReservaHab")
+
+    //@JsonIdentityReference(alwaysAsId = true)
     private List<DetalleReserva> tieneDetalleReservaHab;
 
     public Habitacion() {

@@ -1,15 +1,8 @@
 package pe.edu.uandina.hotelzSpring.modelo;
-
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import org.apache.tomcat.jni.Local;
-
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
 
 @Entity
 @Table(name = "detalleReserva")
@@ -33,14 +26,18 @@ public class DetalleReserva {
     // cliente
     @ManyToOne
     @JoinColumn(name = "tieneDetalleReserva", referencedColumnName = "id")
-    @JsonBackReference
     //@JsonBackReference
+    @JsonBackReference(value = "tieneDetalleReserva")
+    //@JsonIdentityReference(alwaysAsId = true)
+
     private Cliente tieneDetalleReserva;
 
     //referencia de muchos a uno para tieneRestaurante
     @ManyToOne
     @JoinColumn(name = "tieneDetalleReservaRest", referencedColumnName = "id")
-    @JsonBackReference
+    //@JsonBackReference
+    @JsonBackReference(value = "tieneDetalleReservaRest")
+    //@JsonIdentityReference(alwaysAsId = true)
     //@JsonBackReference
     private Restaurante tieneDetalleReservaRest;
 
@@ -48,7 +45,9 @@ public class DetalleReserva {
     //referencia de muchos a uno para tieneHabitacion
     @ManyToOne
     @JoinColumn(name = "tieneDetalleReservaHab", referencedColumnName = "id")
-    @JsonBackReference
+    //@JsonBackReference
+    @JsonBackReference(value = "tieneDetalleReservaHab")
+    //@JsonIdentityReference(alwaysAsId = true)
     //@JsonBackReference
     private Habitacion tieneDetalleReservaHab;
 

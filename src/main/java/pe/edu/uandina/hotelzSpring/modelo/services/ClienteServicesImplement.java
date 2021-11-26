@@ -6,7 +6,7 @@ import pe.edu.uandina.hotelzSpring.modelo.Cliente;
 import pe.edu.uandina.hotelzSpring.modelo.dao.IClienteDao;
 import java.util.List;
 
-//@Service convierte a la implentacuin siguiente en un servicio
+//@Service convierte a la implentacion siguiente en un servicio
 @Service
 //implementacion de la clases servicesImplements que implementa a la interfaz IclienteService
 //ClienteServiceImplements implentar y construir los metodos

@@ -1,12 +1,9 @@
 package pe.edu.uandina.hotelzSpring.control;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import pe.edu.uandina.hotelzSpring.modelo.Restaurante;
 import pe.edu.uandina.hotelzSpring.modelo.services.IRestauranteService;
-
-
 import java.util.List;
 
 //@RestController la clase q sigue sera un controlador

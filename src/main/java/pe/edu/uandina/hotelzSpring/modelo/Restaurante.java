@@ -25,7 +25,9 @@ public class Restaurante {
 
     //    pertenece a un detalleReserva
     @OneToMany(mappedBy = "tieneDetalleReservaRest")
-    @JsonManagedReference
+    //@JsonManagedReference
+    @JsonManagedReference(value = "tieneDetalleReservaRest")
+    //@JsonIdentityReference(alwaysAsId = true)
     private List<DetalleReserva> tieneDetalleReservaRest;
 
     public Restaurante() {

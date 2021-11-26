@@ -1,4 +1,5 @@
 package pe.edu.uandina.hotelzSpring.modelo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import java.util.ArrayList;
@@ -30,11 +31,15 @@ public class Cliente {
     private String dni;
 
     @OneToMany(mappedBy = "tieneTestimonio")
-    @JsonManagedReference
+    //@JsonManagedReference
+    @JsonManagedReference(value = "tieneTestimonio")
+    //@JsonIdentityReference(alwaysAsId = true)
     private List<Testimonio> testimonios;
 
     @OneToMany(mappedBy = "tieneDetalleReserva")
-    @JsonManagedReference
+    //@JsonManagedReference
+    @JsonManagedReference(value = "tieneDetalleReserva")
+    //@JsonIdentityReference(alwaysAsId = true)
     private List<DetalleReserva> detalleReservas;
 
     public Cliente() {
