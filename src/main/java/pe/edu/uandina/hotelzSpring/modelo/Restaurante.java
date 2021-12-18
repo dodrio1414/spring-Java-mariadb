@@ -18,16 +18,13 @@ public class Restaurante {
     private String nombrePlato;
     @Column(name = "precioPlato", scale = 2)
     private BigDecimal precioPlato;
-
     @Column(name = "fotoRestaurante")
     private String fotoRestaurante;
 
 
     //    pertenece a un detalleReserva
     @OneToMany(mappedBy = "tieneDetalleReservaRest")
-    //@JsonManagedReference
     @JsonManagedReference(value = "tieneDetalleReservaRest")
-    //@JsonIdentityReference(alwaysAsId = true)
     private List<DetalleReserva> tieneDetalleReservaRest;
 
     public Restaurante() {
@@ -71,14 +68,14 @@ public class Restaurante {
         this.fotoRestaurante = fotoRestaurante;
     }
 
-    public List<DetalleReserva> getDetalleReservas() {
+    public List<DetalleReserva> getTieneDetalleReservaRest() {
         if (this.tieneDetalleReservaRest == null){
             this.tieneDetalleReservaRest = new ArrayList<>();
         }
         return tieneDetalleReservaRest;
     }
 
-    public void setDetalleReservas(List<DetalleReserva> detalleReservas) {
-        this.tieneDetalleReservaRest = detalleReservas;
+    public void setTieneDetalleReservaRest(List<DetalleReserva> tieneDetalleReservaRest) {
+        this.tieneDetalleReservaRest = tieneDetalleReservaRest;
     }
 }

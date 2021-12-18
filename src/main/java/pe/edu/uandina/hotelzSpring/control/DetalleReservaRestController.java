@@ -45,6 +45,10 @@ public class DetalleReservaRestController {
     public DetalleReserva actualizar(@RequestBody DetalleReserva detalleReserva, @PathVariable Long id){
         DetalleReserva detalleOriginal = detalleReservaService.findById(id);
         detalleOriginal.setPrecio(detalleReserva.getPrecio());
+        detalleOriginal.setIngreso(detalleReserva.getIngreso());
+        detalleOriginal.setSalida(detalleReserva.getSalida());
+        detalleOriginal.setAdelanto(detalleReserva.getAdelanto());
+        detalleOriginal.setDias(detalleReserva.getDias());
         return detalleReservaService.save(detalleOriginal);
     }
 
@@ -54,4 +58,5 @@ public class DetalleReservaRestController {
     public void eliminar(@PathVariable Long id){
         detalleReservaService.delete(id);
     }
+
 }

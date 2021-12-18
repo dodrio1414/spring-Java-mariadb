@@ -2,11 +2,17 @@ package pe.edu.uandina.hotelzSpring.modelo;
 
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+
+//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,
+//        property = "id")
+//@JsonIdentityReference(alwaysAsId = true)
 
 @Entity
 @Table(name = "testimonio")
@@ -22,9 +28,8 @@ public class Testimonio {
 
     @ManyToOne
     @JoinColumn(name = "tieneTestimonio", referencedColumnName = "id")
-    //@JsonBackReference
     @JsonBackReference(value = "tieneTestimonio")
-    //@JsonIdentityReference(alwaysAsId = true)
+
     //serializar Object por su id en lugar de como POJO "una instancia de una clase que no extiende ni implementa nada en especial"
     private Cliente tieneTestimonio;
 

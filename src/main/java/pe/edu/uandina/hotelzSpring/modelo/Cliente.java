@@ -31,15 +31,13 @@ public class Cliente {
     private String dni;
 
     @OneToMany(mappedBy = "tieneTestimonio")
-    //@JsonManagedReference
+
     @JsonManagedReference(value = "tieneTestimonio")
-    //@JsonIdentityReference(alwaysAsId = true)
     private List<Testimonio> testimonios;
 
     @OneToMany(mappedBy = "tieneDetalleReserva")
-    //@JsonManagedReference
+
     @JsonManagedReference(value = "tieneDetalleReserva")
-    //@JsonIdentityReference(alwaysAsId = true)
     private List<DetalleReserva> detalleReservas;
 
     public Cliente() {
