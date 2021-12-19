@@ -41,6 +41,7 @@ public class TestimonioRestController {
     public Testimonio actualizar(@RequestBody Testimonio testimonio, @PathVariable Long id){
         Testimonio testimonioOriginal = testimonioService.findById(id);
         testimonioOriginal.setContenido(testimonio.getContenido());
+        testimonioOriginal.setEstado(testimonio.getEstado());
         return testimonioService.save(testimonioOriginal);
     }
 

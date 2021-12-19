@@ -42,6 +42,11 @@ public class HabitacionRestController {
     public Habitacion actualizar(@RequestBody Habitacion habitacion, @PathVariable Long id){
         Habitacion habitacionOriginal = habitacionService.findById(id);
         habitacionOriginal.setTipoHabitacion(habitacion.getTipoHabitacion());
+        habitacionOriginal.setNombreHabitacion(habitacion.getNombreHabitacion());
+        habitacionOriginal.setFotoHabitacion(habitacion.getFotoHabitacion());
+        habitacionOriginal.setEstadoHabitacion(habitacion.getEstadoHabitacion());
+        habitacionOriginal.setPrecioHabitacion(habitacion.getPrecioHabitacion());
+        habitacionOriginal.setDescripcionHabitacion(habitacion.getDescripcionHabitacion());
         return habitacionService.save(habitacionOriginal);
     }
 

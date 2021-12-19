@@ -38,6 +38,9 @@ public class RestauranteRestController {
     public Restaurante actualizar(@RequestBody Restaurante restaurante, @PathVariable Long id){
         Restaurante restauranteOriginal = restauranteService.findById(id);
         restauranteOriginal.setNombrePlato(restaurante.getNombrePlato());
+        restauranteOriginal.setPrecioPlato(restaurante.getPrecioPlato());
+        restauranteOriginal.setFotoRestaurante(restaurante.getFotoRestaurante());
+
         return restauranteService.save(restauranteOriginal);
     }
 
